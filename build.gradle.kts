@@ -1,16 +1,13 @@
 plugins {
-	id("dev.frozenmilk.teamcode") version "10.2.0-0.1.3"
-	id("dev.frozenmilk.sinister.sloth.load") version "0.2.1"
-}
-
-repositories {
-	maven("https://repo.dairy.foundation/releases")
-}
-
-dependencies {
-	implementation("dev.frozenmilk.sinister:Sloth:0.2.1")
+    id("dev.frozenmilk.teamcode") version "11.0.0-1.0.0"
+    id("dev.frozenmilk.sinister.sloth.load") version "0.2.4"
 }
 
 ftc {
-	// use this to easily add more FTC libraries
+    // adds support for kotlin
+    kotlin()
+
+    // adds the necessary sdk dependencies
+    sdk.TeamCode()
+    implementation(dairy.Sloth)
 }
