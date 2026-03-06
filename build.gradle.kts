@@ -33,4 +33,5 @@ dependencies {
     implementation("dev.nextftc:control2:0.0.3")
     implementation("dev.nextftc.control2:units:0.0.1")
     implementation("dev.nextftc.control2:linalg:0.0.1")
+    implementation("io.github.kleongf:Cubelib:1.0.0-beta.1")
 }
