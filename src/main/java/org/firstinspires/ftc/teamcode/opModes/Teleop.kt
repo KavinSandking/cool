@@ -1,6 +1,5 @@
-package org.firstinspires.ftc.teamcode
+package org.firstinspires.ftc.teamcode.opModes
 
-import com.pedropathing.geometry.Pose
 import dev.nextftc.bindings.BindingManager
 import dev.nextftc.bindings.button
 import dev.nextftc.bindings.range
@@ -33,5 +32,6 @@ class Teleop: NextFTCOpMode() {
         button { gamepad1.a } whenTrue { Robot.drivetrain.autoAim }
         range { gamepad2.right_stick_y }.inRange(-0.1, 0.1) whenFalse { Robot.intake.custom }
         button { gamepad2.right_bumper } whenBecomesTrue Robot.catapults.upTeleop whenBecomesFalse Robot.catapults.down
+        button { gamepad2.left_bumper } whenBecomesTrue Robot.catapults.stabilize
     }
 }
