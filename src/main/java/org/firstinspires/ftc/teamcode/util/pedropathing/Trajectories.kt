@@ -9,7 +9,7 @@ import com.pedropathing.paths.PathChain
 import org.firstinspires.ftc.teamcode.util.Alliance
 import org.firstinspires.ftc.teamcode.util.subsystems.Robot
 
-class Trajectories {
+object Trajectories {
     val startPose = Pose(23.5, 125.0, Math.toRadians(144.0))
     val scorePose = Pose(36.0, 114.0, Math.toRadians(144.0))
     val line2StartPose = Pose(42.0, 59.0, Math.toRadians(180.0))
