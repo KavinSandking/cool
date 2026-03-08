@@ -47,8 +47,8 @@ object Robot: SubsystemGroup(Drivetrain, Catapults, Intake, BreakBeam) {
     )
 
     fun overload(t: Double): Command = SequentialGroup(
-        until { BreakBeam.overload },
-        wait(t),
+        Intake.on.until { BreakBeam.overload },
+        wait(0.1),
         Intake.reverse
     )
 
