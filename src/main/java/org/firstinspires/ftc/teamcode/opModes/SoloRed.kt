@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.opModes
 
-import dev.nextftc.core.commands.groups.SequentialGroup
 import dev.nextftc.core.components.BindingsComponent
 import dev.nextftc.core.components.SubsystemComponent
 import dev.nextftc.extensions.pedro.PedroComponent
@@ -10,10 +9,8 @@ import dev.nextftc.ftc.components.BulkReadComponent
 import org.firstinspires.ftc.teamcode.util.Alliance
 import org.firstinspires.ftc.teamcode.util.pedropathing.Constants
 import org.firstinspires.ftc.teamcode.util.pedropathing.Trajectories
-import org.firstinspires.ftc.teamcode.util.subsystems.Catapults
-import org.firstinspires.ftc.teamcode.util.subsystems.Drivetrain
-import org.firstinspires.ftc.teamcode.util.subsystems.Intake
-import org.firstinspires.ftc.teamcode.util.subsystems.Robot
+import org.firstinspires.ftc.teamcode.util.sequential
+import org.firstinspires.ftc.teamcode.util.subsystems.*
 
 class SoloRed : NextFTCOpMode() {
     init {
@@ -33,7 +30,7 @@ class SoloRed : NextFTCOpMode() {
     }
 
     override fun onStartButtonPressed() {
-        SequentialGroup(
+        sequential(
             Robot.scoreFirst(Trajectories.score1),
             Robot.intake(Trajectories.line2),
             Robot.score(Trajectories.score2),
@@ -46,4 +43,9 @@ class SoloRed : NextFTCOpMode() {
             Robot.score(Trajectories.leave)
         )
     }
+
+    override fun onStop(){
+        PoseStorage.endPoseRed = follower.pose
+    }
+
 }

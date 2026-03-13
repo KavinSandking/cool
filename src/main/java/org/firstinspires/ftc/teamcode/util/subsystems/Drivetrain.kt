@@ -18,8 +18,8 @@ import kotlin.math.atan2
 object Drivetrain: Subsystem {
     val fl = MotorEx("leftFront").brakeMode()
     val bl = MotorEx("leftBack").brakeMode()
-    val fr = MotorEx("rightFront").reversed().brakeMode()
-    val br = MotorEx("rightBack").reversed().brakeMode()
+    val fr = MotorEx("rightFront").brakeMode()
+    val br = MotorEx("rightBack").brakeMode()
 
     val pinpoint: GoBildaPinpointDriver by lazy { ActiveOpMode.hardwareMap.get(GoBildaPinpointDriver::class.java, "pinpoint") }
     val heading: Double get() = pinpoint.getHeading(AngleUnit.RADIANS)

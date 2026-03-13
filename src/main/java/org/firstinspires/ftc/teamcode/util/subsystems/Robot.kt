@@ -8,17 +8,19 @@ import dev.nextftc.core.commands.wait
 import dev.nextftc.core.subsystems.SubsystemGroup
 import org.firstinspires.ftc.teamcode.util.Alliance
 import org.firstinspires.ftc.teamcode.util.followPath
+import org.firstinspires.ftc.teamcode.util.parallel
+import org.firstinspires.ftc.teamcode.util.sequential
 import org.firstinspires.ftc.teamcode.util.until
 
 object Robot: SubsystemGroup(Drivetrain, Catapults, Intake, BreakBeam) {
     var alliance = Alliance.BLUE
 
-    fun scoreFirst(p: PathChain): Command = SequentialGroup(
+    fun scoreFirst(p: PathChain): Command = sequential(
         followPath(p), wait(0.25), Catapults.shoot
     )
 
-    fun score(p: PathChain): Command = SequentialGroup(
-        ParallelGroup(followPath(p), Intake.reverse),
+    fun score(p: PathChain): Command = sequential(
+        parallel(followPath(p), Intake.reverse),
         Intake.off,
         Catapults.stabilize,
         wait(0.1),
@@ -27,8 +29,8 @@ object Robot: SubsystemGroup(Drivetrain, Catapults, Intake, BreakBeam) {
         Catapults.shoot
     )
 
-    fun gateScore(p: PathChain): Command = SequentialGroup(
-        ParallelGroup(followPath(p), Intake.reverse),
+    fun gateScore(p: PathChain): Command = sequential(
+        parallel(followPath(p), Intake.reverse),
         Intake.off,
         Catapults.stabilize,
         wait(0.1),
@@ -37,16 +39,16 @@ object Robot: SubsystemGroup(Drivetrain, Catapults, Intake, BreakBeam) {
         Catapults.shootSlow
     )
 
-    fun intake(p: PathChain): Command = SequentialGroup(
-        ParallelGroup(followPath(p), Intake.reverse)
+    fun intake(p: PathChain): Command = sequential(
+        parallel(followPath(p), Intake.reverse)
     )
 
-    fun openGate(p: PathChain): Command = SequentialGroup(
-        ParallelGroup(followPath(p), Intake.on),
+    fun openGate(p: PathChain): Command = sequential(
+        parallel(followPath(p), Intake.on),
         wait(0.5)
     )
 
-    fun overload(t: Double): Command = SequentialGroup(
+    fun overload(t: Double): Command = sequential(
         Intake.on.until { BreakBeam.overload },
         wait(0.1),
         Intake.reverse

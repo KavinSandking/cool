@@ -21,6 +21,7 @@ ftc {
     }
 
     pedro {
+        version = "2.0.6"
         implementation(core)
         implementation(ftc)
     }
