@@ -5,41 +5,22 @@ import com.pedropathing.follower.Follower
 import com.pedropathing.geometry.Pose
 import com.pedropathing.ivy.Command
 import com.pedropathing.math.MathFunctions
-import com.qualcomm.robotcore.hardware.DcMotor
-import com.qualcomm.robotcore.hardware.DcMotorEx
+import dev.nextftc.core.subsystems.Subsystem
 import dev.nextftc.ftc.ActiveOpMode
-import org.firstinspires.ftc.teamcode.nextftc.Alliance
+import dev.nextftc.hardware.impl.MotorEx
+import org.firstinspires.ftc.teamcode.ivy.Alliance
 import org.firstinspires.ftc.teamcode.pedropathing.Constants
 
 
-object Drivetrain {
+object Drivetrain: Subsystem {
+    val fl = MotorEx("leftFront").brakeMode()
+    val bl = MotorEx("leftBack").brakeMode()
+    val fr = MotorEx("rightFront").brakeMode().reversed()
+    val br = MotorEx("rightBack").brakeMode().reversed()
+    lateinit var follower: Follower
 
-    val fl: DcMotorEx by lazy { ActiveOpMode.hardwareMap.get(DcMotorEx::class.java, "leftFront") }
-    val bl: DcMotorEx by lazy { ActiveOpMode.hardwareMap.get(DcMotorEx::class.java, "leftBack") }
-    val fr: DcMotorEx by lazy { ActiveOpMode.hardwareMap.get(DcMotorEx::class.java, "rightFront") }
-    val br: DcMotorEx by lazy { ActiveOpMode.hardwareMap.get(DcMotorEx::class.java, "rightBack") }
-
-
-    val startPose: Pose
-        get() = if (Alliance.current == Alliance.BLUE) Alliance.BLUE_START_POSE.pose
-        else Alliance.RED_START_POSE.pose
-
-    val headingGoal: Double
-        get() = if(Alliance.current == Alliance.BLUE) Alliance.BLUE_GOAL.pose.heading
-        else Alliance.RED_GOAL.pose.heading
-
-    val follower: Follower by lazy {
-        Constants.createFollower(ActiveOpMode.hardwareMap).apply {
-            setStartingPose(startPose)
-        }
-    }
-
-    init {
-        listOf(fl, bl, fr, br).forEach {
-            it.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
-        }
-    }
-
+    val startPose: Pose = Alliance.start
+    val headingGoal: Double = Alliance.goal.heading
     val controller = PIDFController(follower.constants.coefficientsHeadingPIDF)
 
     val drive: Command = Command.build()
@@ -71,5 +52,14 @@ object Drivetrain {
             headingGoal
         ) * MathFunctions.getSmallestAngleDifference(follower.heading, headingGoal)
         return headingError
+    }
+
+    override fun initialize() {
+        follower = Constants.createFollower(ActiveOpMode.hardwareMap)
+        follower.setStartingPose(startPose)
+    }
+
+    override fun periodic(){
+        follower.update()
     }
 }
