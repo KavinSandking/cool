@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.util.pedropathing
+package org.firstinspires.ftc.teamcode.pedropathing
 
 import com.pedropathing.follower.Follower
 import com.pedropathing.geometry.BezierCurve
@@ -6,8 +6,8 @@ import com.pedropathing.geometry.BezierLine
 import com.pedropathing.geometry.Pose
 import com.pedropathing.paths.HeadingInterpolator
 import com.pedropathing.paths.PathChain
-import org.firstinspires.ftc.teamcode.util.Alliance
-import org.firstinspires.ftc.teamcode.util.subsystems.Robot
+import org.firstinspires.ftc.teamcode.nextftc.Alliance
+import org.firstinspires.ftc.teamcode.nextftc.subsystems.Robot
 
 object Trajectories {
     val startPose = Pose(23.5, 125.0, Math.toRadians(144.0))
@@ -45,7 +45,7 @@ object Trajectories {
     fun paths(follower: Follower) {
         follower.setStartingPose(startPose)
 
-        if (Robot.alliance == Alliance.BLUE) {
+        if (Robot.alliance == Alliance.BLUE_GOAL) {
             score1 = follower.pathBuilder()
                 .addPath(BezierLine(startPose, scorePose))
                 .setConstantHeadingInterpolation(scorePose.heading)

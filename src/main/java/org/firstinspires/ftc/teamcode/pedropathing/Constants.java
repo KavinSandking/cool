@@ -1,5 +1,5 @@
 
-package org.firstinspires.ftc.teamcode.util.pedropathing;
+package org.firstinspires.ftc.teamcode.pedropathing;
 
 import com.pedropathing.control.FilteredPIDFCoefficients;
 import com.pedropathing.control.PIDFCoefficients;

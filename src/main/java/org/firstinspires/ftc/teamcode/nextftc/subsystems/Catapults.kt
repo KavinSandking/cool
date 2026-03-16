@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.util.subsystems
+package org.firstinspires.ftc.teamcode.nextftc.subsystems
 
 import dev.nextftc.core.commands.groups.SequentialGroup
 import dev.nextftc.core.commands.wait

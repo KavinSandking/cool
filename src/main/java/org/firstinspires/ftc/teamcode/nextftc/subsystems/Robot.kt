@@ -1,19 +1,16 @@
-package org.firstinspires.ftc.teamcode.util.subsystems
+package org.firstinspires.ftc.teamcode.nextftc.subsystems
 
 import com.pedropathing.paths.PathChain
 import dev.nextftc.core.commands.Command
-import dev.nextftc.core.commands.groups.ParallelGroup
-import dev.nextftc.core.commands.groups.SequentialGroup
 import dev.nextftc.core.commands.wait
 import dev.nextftc.core.subsystems.SubsystemGroup
-import org.firstinspires.ftc.teamcode.util.Alliance
-import org.firstinspires.ftc.teamcode.util.followPath
-import org.firstinspires.ftc.teamcode.util.parallel
-import org.firstinspires.ftc.teamcode.util.sequential
-import org.firstinspires.ftc.teamcode.util.until
+import org.firstinspires.ftc.teamcode.nextftc.Alliance
+import org.firstinspires.ftc.teamcode.nextftc.util.followPath
+import org.firstinspires.ftc.teamcode.nextftc.util.parallel
+import org.firstinspires.ftc.teamcode.nextftc.util.sequential
 
 object Robot: SubsystemGroup(Drivetrain, Catapults, Intake, BreakBeam) {
-    var alliance = Alliance.BLUE
+    var alliance = Alliance.BLUE_GOAL
 
     fun scoreFirst(p: PathChain): Command = sequential(
         followPath(p), wait(0.25), Catapults.shoot
@@ -55,6 +52,6 @@ object Robot: SubsystemGroup(Drivetrain, Catapults, Intake, BreakBeam) {
     )
 
     override fun initialize() {
-        Drivetrain.goal = alliance.goal
+        Drivetrain.goal = alliance.pose
     }
 }

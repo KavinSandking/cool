@@ -1,21 +1,18 @@
-package org.firstinspires.ftc.teamcode.opModes
+package org.firstinspires.ftc.teamcode.nextftc.opModes
 
-import com.pedropathing.geometry.Pose
-import dev.nextftc.core.commands.groups.SequentialGroup
-import dev.nextftc.core.commands.instant
 import dev.nextftc.core.components.BindingsComponent
 import dev.nextftc.core.components.SubsystemComponent
 import dev.nextftc.extensions.pedro.PedroComponent
 import dev.nextftc.extensions.pedro.PedroComponent.Companion.follower
 import dev.nextftc.ftc.NextFTCOpMode
 import dev.nextftc.ftc.components.BulkReadComponent
-import org.firstinspires.ftc.teamcode.util.Alliance
-import org.firstinspires.ftc.teamcode.util.pedropathing.Constants
-import org.firstinspires.ftc.teamcode.util.pedropathing.Trajectories
-import org.firstinspires.ftc.teamcode.util.sequential
-import org.firstinspires.ftc.teamcode.util.subsystems.*
+import org.firstinspires.ftc.teamcode.nextftc.Alliance
+import org.firstinspires.ftc.teamcode.pedropathing.Constants
+import org.firstinspires.ftc.teamcode.pedropathing.Trajectories
+import org.firstinspires.ftc.teamcode.nextftc.util.sequential
+import org.firstinspires.ftc.teamcode.nextftc.subsystems.*
 
-class SoloBlue : NextFTCOpMode() {
+class SoloRed : NextFTCOpMode() {
     init {
         addComponents(
             SubsystemComponent(Drivetrain, Intake, Catapults, Robot),
@@ -25,8 +22,9 @@ class SoloBlue : NextFTCOpMode() {
         )
     }
 
+
     override fun onInit() {
-        Robot.alliance = Alliance.BLUE
+        Robot.alliance = Alliance.RED_GOAL
         Trajectories.paths(follower)
         Catapults.down
     }
@@ -47,6 +45,7 @@ class SoloBlue : NextFTCOpMode() {
     }
 
     override fun onStop(){
-        PoseStorage.endPoseBlue = follower.pose
+        PoseStorage.endPoseRed = follower.pose
     }
+
 }

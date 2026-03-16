@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opModes
+package org.firstinspires.ftc.teamcode.nextftc.opModes
 
 import dev.nextftc.bindings.BindingManager
 import dev.nextftc.bindings.button
@@ -8,9 +8,9 @@ import dev.nextftc.core.components.SubsystemComponent
 import dev.nextftc.extensions.pedro.PedroComponent
 import dev.nextftc.ftc.NextFTCOpMode
 import dev.nextftc.ftc.components.BulkReadComponent
-import org.firstinspires.ftc.teamcode.util.Alliance
-import org.firstinspires.ftc.teamcode.util.pedropathing.Constants
-import org.firstinspires.ftc.teamcode.util.subsystems.*
+import org.firstinspires.ftc.teamcode.nextftc.Alliance
+import org.firstinspires.ftc.teamcode.pedropathing.Constants
+import org.firstinspires.ftc.teamcode.nextftc.subsystems.*
 
 class Teleop: NextFTCOpMode() {
     init {
@@ -23,10 +23,10 @@ class Teleop: NextFTCOpMode() {
     }
 
     override fun onInit() {
-        button { gamepad1.a } whenBecomesTrue { Robot.alliance = Alliance.BLUE }
-        button { gamepad1.y } whenBecomesTrue { Robot.alliance = Alliance.RED }
+        button { gamepad1.a } whenBecomesTrue { Robot.alliance = Alliance.BLUE_GOAL }
+        button { gamepad1.y } whenBecomesTrue { Robot.alliance = Alliance.RED_GOAL }
 
-        if (Robot.alliance == Alliance.BLUE) PedroComponent.follower.setStartingPose(PoseStorage.endPoseBlue)
+        if (Robot.alliance == Alliance.BLUE_GOAL) PedroComponent.follower.setStartingPose(PoseStorage.endPoseBlue)
         else PedroComponent.follower.setStartingPose(PoseStorage.endPoseRed)
 
         BindingManager.reset()

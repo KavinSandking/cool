@@ -1,11 +1,11 @@
 plugins {
-    id("dev.frozenmilk.teamcode") version "11.0.0-1.1.0"
+    id("dev.frozenmilk.teamcode") version "11.1.0-1.1.2"
     id("dev.frozenmilk.sinister.sloth.load") version "0.2.4"
 }
 
 ftc {
     kotlin()
-    sdk.TeamCode()
+    sdk.TeamCode("11.1.0")
 
     dairy {
         implementation(Sloth)
@@ -35,4 +35,5 @@ dependencies {
     implementation("dev.nextftc.control2:units:0.0.1")
     implementation("dev.nextftc.control2:linalg:0.0.1")
     implementation("io.github.kleongf:Cubelib:1.0.0-beta.1")
+    implementation("com.pedropathing:ivy:0.0.1")
 }
