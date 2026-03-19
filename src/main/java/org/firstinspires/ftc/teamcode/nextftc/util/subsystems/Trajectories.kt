@@ -1,26 +1,25 @@
-package org.firstinspires.ftc.teamcode.pedropathing
+package org.firstinspires.ftc.teamcode.nextftc.util.subsystems
 
-import com.pedropathing.follower.Follower
 import com.pedropathing.geometry.BezierCurve
 import com.pedropathing.geometry.BezierLine
 import com.pedropathing.geometry.Pose
 import com.pedropathing.paths.HeadingInterpolator
 import com.pedropathing.paths.PathChain
+import dev.nextftc.extensions.pedro.PedroComponent.Companion.follower
 import org.firstinspires.ftc.teamcode.nextftc.util.enums.Alliance
-import org.firstinspires.ftc.teamcode.nextftc.subsystems.Robot
 
 object Trajectories {
-    val startPose = Pose(23.5, 125.0, Math.toRadians(144.0))
-    val scorePose = Pose(36.0, 114.0, Math.toRadians(144.0))
-    val line2StartPose = Pose(42.0, 59.0, Math.toRadians(180.0))
-    val line2EndPose = Pose(24.0, 59.0, Math.toRadians(180.0))
-    val openGatePose = Pose(24.0, 63.0, Math.toRadians(180.0))
-    val gateIntakePose = Pose(13.0, 54.0, Math.toRadians(140.0))
-    val line1StartPose = Pose(45.0, 84.0, Math.toRadians(180.0))
-    val line1EndPose = Pose(24.0, 84.0, Math.toRadians(180.0))
-    val line3StartPose = Pose(45.0, 36.0, Math.toRadians(180.0))
-    val line3EndPose = Pose(23.0, 36.0, Math.toRadians(180.0))
-    val leavePose = Pose(43.0, 123.0, Math.toRadians(170.0))
+    private val startPose = Pose(23.5, 125.0, Math.toRadians(144.0))
+    private val scorePose = Pose(36.0, 114.0, Math.toRadians(144.0))
+    private val line2StartPose = Pose(42.0, 59.0, Math.toRadians(180.0))
+    private val line2EndPose = Pose(24.0, 59.0, Math.toRadians(180.0))
+    private val openGatePose = Pose(24.0, 63.0, Math.toRadians(180.0))
+    private val gateIntakePose = Pose(13.0, 54.0, Math.toRadians(140.0))
+    private val line1StartPose = Pose(45.0, 84.0, Math.toRadians(180.0))
+    private val line1EndPose = Pose(24.0, 84.0, Math.toRadians(180.0))
+    private val line3StartPose = Pose(45.0, 36.0, Math.toRadians(180.0))
+    private val line3EndPose = Pose(23.0, 36.0, Math.toRadians(180.0))
+    private val leavePose = Pose(43.0, 123.0, Math.toRadians(170.0))
 
     private val cLine2 = Pose(77.0, 56.0)
     private val cLine1 = Pose(62.0, 81.0)
@@ -28,6 +27,7 @@ object Trajectories {
     private val cScore2 = Pose(70.0, 67.0)
     private val cScore3 = Pose(77.0, 66.0)
     private val cScore4 = Pose(50.0, 92.0)
+    private val cScore5 = Pose(52.0, 110.0)
     private val cOpenGate = Pose(70.0, 61.0)
     private val cGateIntake = Pose(26.0, 57.0)
 
@@ -39,13 +39,11 @@ object Trajectories {
     lateinit var line1: PathChain
     lateinit var score4: PathChain
     lateinit var line3: PathChain
+    lateinit var score5: PathChain
     lateinit var leave: PathChain
 
-
-    fun paths(follower: Follower) {
-        follower.setStartingPose(startPose)
-
-        if (Robot.alliance == Alliance.BLUE_GOAL) {
+    fun paths() {
+        if (Alliance.current == Alliance.BLUE) {
             score1 = follower.pathBuilder()
                 .addPath(BezierLine(startPose, scorePose))
                 .setConstantHeadingInterpolation(scorePose.heading)
@@ -124,12 +122,21 @@ object Trajectories {
                 .setConstantHeadingInterpolation(line3EndPose.heading)
                 .build()
 
+            score5 = follower.pathBuilder()
+                .addPath(BezierCurve(line3EndPose, cScore5, scorePose))
+                .setHeadingInterpolation(
+                    HeadingInterpolator.linear(
+                        line3EndPose.heading,
+                        scorePose.heading
+                    )
+                )
+                .build()
+
             leave = follower.pathBuilder()
                 .addPath(BezierLine(scorePose, leavePose))
                 .setConstantHeadingInterpolation(leavePose.heading)
                 .build()
         } else {
-            follower.setStartingPose(startPose.mirror())
             score1 = follower.pathBuilder()
                 .addPath(BezierLine(startPose.mirror(), scorePose.mirror()))
                 .setConstantHeadingInterpolation(scorePose.mirror().heading)
@@ -159,9 +166,15 @@ object Trajectories {
 
             openGate = follower.pathBuilder()
                 .addPath(BezierCurve(scorePose.mirror(), cOpenGate.mirror(), openGatePose.mirror()))
-                .setLinearHeadingInterpolation(scorePose.mirror().heading, openGatePose.mirror().heading)
+                .setLinearHeadingInterpolation(
+                    scorePose.mirror().heading,
+                    openGatePose.mirror().heading
+                )
                 .addPath(BezierCurve(openGatePose.mirror(), cGateIntake.mirror(), gateIntakePose.mirror()))
-                .setLinearHeadingInterpolation(openGatePose.mirror().heading, gateIntakePose.mirror().heading)
+                .setLinearHeadingInterpolation(
+                    openGatePose.mirror().heading,
+                    gateIntakePose.mirror().heading
+                )
                 .build()
 
             score3 = follower.pathBuilder()
@@ -208,10 +221,21 @@ object Trajectories {
                 .setConstantHeadingInterpolation(line3EndPose.mirror().heading)
                 .build()
 
+            score5 = follower.pathBuilder()
+                .addPath(BezierCurve(line3EndPose.mirror(), cScore5.mirror(), scorePose.mirror()))
+                .setHeadingInterpolation(
+                    HeadingInterpolator.linear(
+                        line3EndPose.mirror().heading,
+                        scorePose.mirror().heading
+                    )
+                )
+                .build()
+
             leave = follower.pathBuilder()
                 .addPath(BezierLine(scorePose.mirror(), leavePose.mirror()))
                 .setConstantHeadingInterpolation(leavePose.mirror().heading)
                 .build()
         }
     }
+
 }
