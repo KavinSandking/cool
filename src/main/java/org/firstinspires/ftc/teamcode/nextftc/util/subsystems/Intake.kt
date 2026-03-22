@@ -24,13 +24,13 @@ object Intake: Subsystem {
     val manual = instant { intake.power = -Gamepads.gamepad2.rightStickY.get() }
 
     val reset = instant { ballCount = 0 }
-    val overload = stateful({ count > 2 }, wait(0.25).then(reverse, instant { ballCount = 0 })).setInterruptible(false).requires(this)
+    val overload = stateful({ count > 2 }, wait(0.25).then(reverse, reset)).setInterruptible(false).requires(this)
 
     override fun periodic() {
         val detected = breakBeam.state
 
-        if (detected && !lastDetected) state = BreakBeamStates.DETECTED
-        else state = BreakBeamStates.NOT_DETECTING
+        state = if (detected && !lastDetected) BreakBeamStates.DETECTED
+        else BreakBeamStates.NOT_DETECTING
 
         when(state){
             BreakBeamStates.DETECTED -> ballCount ++

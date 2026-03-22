@@ -21,9 +21,8 @@ ftc {
     }
 
     pedro {
-        version = "2.0.6"
-        implementation(core)
-        implementation(ftc)
+        implementation(core("2.1.0"))
+        implementation(ftc("2.1.0"))
     }
 
     implementation(acmerobotics.dashboard)

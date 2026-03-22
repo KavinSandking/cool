@@ -8,8 +8,7 @@ import dev.nextftc.core.commands.utility.LambdaCommand
 import dev.nextftc.core.subsystems.Subsystem
 import dev.nextftc.extensions.pedro.PedroComponent.Companion.follower
 import dev.nextftc.ftc.Gamepads
-import org.firstinspires.ftc.teamcode.nextftc.util.enums.Alliance
-import org.firstinspires.ftc.teamcode.nextftc.util.enums.OpModeType
+import org.firstinspires.ftc.teamcode.nextftc.util.enums.*
 import kotlin.math.pow
 import kotlin.math.sign
 
@@ -18,6 +17,8 @@ object Drivetrain: Subsystem {
     val targetHeading: Double = Math.toRadians(Alliance.goal.heading)
     val controller: PIDFController = PIDFController(follower.constants.coefficientsHeadingPIDF)
     var headingLock: Boolean = true
+
+    val resetPose: Pose = if (Alliance.current == Alliance.BLUE) Pose() else Pose().mirror()
 
     val drive = LambdaCommand()
         .setStart { follower.startTeleopDrive(true) }
@@ -39,6 +40,8 @@ object Drivetrain: Subsystem {
                 )
             }
         }
+
+    val localize = instant { follower.pose = resetPose }
 
     fun headingError(): Double {
         if (follower.currentPath == null){

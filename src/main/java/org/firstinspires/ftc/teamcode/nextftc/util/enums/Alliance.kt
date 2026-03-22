@@ -22,6 +22,6 @@ enum class Alliance {
             get() = if (current == BLUE) blueStartAuto else blueStartAuto.mirror()
 
         val startTele: Pose?
-            get() = if (current == BLUE) BlueAuton.end else redEndAuto
+            get() = if (current == BLUE) blueEndAuto else redEndAuto
     }
 }

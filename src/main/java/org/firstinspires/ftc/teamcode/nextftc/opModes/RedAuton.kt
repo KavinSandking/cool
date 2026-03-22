@@ -7,25 +7,23 @@ import dev.nextftc.extensions.pedro.PedroComponent.Companion.follower
 import org.firstinspires.ftc.teamcode.nextftc.util.functions.OpMode
 import org.firstinspires.ftc.teamcode.nextftc.util.subsystems.Routines.first
 import org.firstinspires.ftc.teamcode.nextftc.util.subsystems.Routines.intake
-import org.firstinspires.ftc.teamcode.nextftc.util.subsystems.Routines.rest
+import org.firstinspires.ftc.teamcode.nextftc.util.subsystems.Routines.shoot
 
 @Autonomous(name = "red")
 class RedAuton: OpMode() {
-    companion object {
-        lateinit var end: Pose
-    }
-
     override fun onStartButtonPressed() {
+        intake.overload()
+
         val auton = SequentialGroup(
             first(traj.score1),
             intake(traj.line2),
-            rest(traj.score2),
+            shoot(traj.score2),
             intake(traj.openGate),
-            rest(traj.score3),
+            shoot(traj.score3),
             intake(traj.line1),
-            rest(traj.score4),
+            shoot(traj.score4),
             intake(traj.line3),
-            rest(traj.leave)
+            shoot(traj.leave)
         )
 
         auton()
@@ -33,5 +31,9 @@ class RedAuton: OpMode() {
 
     override fun onStop() {
         end = follower.pose
+    }
+
+    companion object {
+        lateinit var end: Pose
     }
 }
