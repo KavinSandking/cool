@@ -21,6 +21,7 @@ class TestSlides: NextFTCOpMode() {
     override fun onStartButtonPressed() {
         button { gamepad2.right_bumper }.toggleOnBecomesTrue() whenBecomesTrue slides.up whenBecomesFalse slides.down
         button { gamepad2.left_bumper } whenBecomesTrue slides.middle
-        button { gamepad2.a } whenBecomesTrue slides.increment
+        button { gamepad2.a } whenBecomesTrue slides.increase
+        button { gamepad2.y } whenBecomesTrue slides.decrease
     }
 }
