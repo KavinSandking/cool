@@ -4,9 +4,9 @@ import com.pedropathing.control.PIDFController
 import com.pedropathing.geometry.Pose
 import com.pedropathing.math.MathFunctions
 import dev.nextftc.core.commands.Command
-import dev.nextftc.core.commands.utility.LambdaCommand
 import dev.nextftc.core.subsystems.Subsystem
 import dev.nextftc.extensions.pedro.PedroComponent.Companion.follower
+import dev.nextftc.extensions.pedro.PedroDriverControlled
 import dev.nextftc.ftc.Gamepads
 import org.firstinspires.ftc.teamcode.nextftc.util.enums.*
 import kotlin.math.pow
@@ -20,26 +20,19 @@ object Drivetrain: Subsystem {
 
     val resetPose: Pose = if (Alliance.current == Alliance.BLUE) Pose() else Pose().mirror()
 
-    val drive = LambdaCommand()
-        .setStart { follower.startTeleopDrive(true) }
-        .setUpdate {
-            controller.coefficients = follower.constants.coefficientsHeadingPIDF
-            controller.updateError(headingError())
-
-            if (headingLock){
-                follower.setTeleOpDrive(
-                    Gamepads.gamepad1.leftStickY.map { x -> x.pow(2) * sign(x) }.get(),
-                    Gamepads.gamepad1.leftStickX.map { x -> x.pow(2) * sign(x) }.get(),
-                    controller.run()
-                )
+    val drive = PedroDriverControlled(
+        Gamepads.gamepad1.leftStickY.map { x -> x.pow(2) * sign(x) },
+        Gamepads.gamepad1.leftStickX.map { x -> x.pow(2) * sign(x) },
+        {
+            if (headingLock) {
+                controller.coefficients = follower.constants.coefficientsHeadingPIDF
+                controller.updateError(headingError())
+                controller.run()
             } else {
-                follower.setTeleOpDrive(
-                    Gamepads.gamepad1.leftStickY.map { x -> x.pow(2) * sign(x) }.get(),
-                    Gamepads.gamepad1.leftStickX.map { x -> x.pow(2) * sign(x) }.get(),
-                    Gamepads.gamepad1.rightStickX.map { x -> x.pow(2) * sign(x) }.get()
-                )
+                Gamepads.gamepad1.rightStickX.map { x -> x.pow(2) * sign(x) }.get()
             }
         }
+    )
 
     val localize = instant { follower.pose = resetPose }
 

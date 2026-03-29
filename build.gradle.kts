@@ -21,11 +21,17 @@ ftc {
     }
 
     pedro {
-        implementation(core("2.1.0"))
-        implementation(ftc("2.1.0"))
+        implementation(core("2.1.1"))
+        implementation(ftc("2.1.1"))
     }
 
-    implementation(acmerobotics.dashboard)
+    acmerobotics {
+        implementation(dashboard)
+        implementation(roadrunner.core)
+        implementation(roadrunner.actions)
+        implementation(roadrunner.ftc)
+    }
+
     implementation(ftControl.fullpanels)
 }
 

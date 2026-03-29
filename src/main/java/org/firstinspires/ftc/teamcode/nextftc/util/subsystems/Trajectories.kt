@@ -1,14 +1,14 @@
 package org.firstinspires.ftc.teamcode.nextftc.util.subsystems
 
+import com.pedropathing.follower.Follower
 import com.pedropathing.geometry.BezierCurve
 import com.pedropathing.geometry.BezierLine
 import com.pedropathing.geometry.Pose
 import com.pedropathing.paths.HeadingInterpolator
 import com.pedropathing.paths.PathChain
-import dev.nextftc.extensions.pedro.PedroComponent.Companion.follower
 import org.firstinspires.ftc.teamcode.nextftc.util.enums.Alliance
 
-object Trajectories {
+class Trajectories(private val follower: Follower) {
     private val startPose = Pose(23.5, 125.0, Math.toRadians(144.0))
     private val scorePose = Pose(36.0, 114.0, Math.toRadians(144.0))
     private val line2StartPose = Pose(42.0, 59.0, Math.toRadians(180.0))

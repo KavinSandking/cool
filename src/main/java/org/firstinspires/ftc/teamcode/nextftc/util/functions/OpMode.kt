@@ -14,7 +14,6 @@ abstract class OpMode: NextFTCOpMode() {
     val intake = Intake
     val catapults = Catapults
     val drivetrain = Drivetrain
-    val traj = Trajectories
 
     init {
         addComponents(
@@ -25,6 +24,7 @@ abstract class OpMode: NextFTCOpMode() {
         )
     }
 
+    val traj = Trajectories(PedroComponent.follower)
     private val prompter = Prompter(this)
 
     override fun onInit() {
