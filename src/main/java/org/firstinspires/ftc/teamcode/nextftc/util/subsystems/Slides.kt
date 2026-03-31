@@ -35,7 +35,7 @@ object Slides: Subsystem {
     val down = instant("down") { set(0) }
     val up = instant("up") { set(4000) }
     val middle = instant("middle") { set(2000) }
-    val test = AdvancingCommand(down, middle, up).named("test")
+    val test = AdvancingCommand(down, middle, up)
     val manual = instant("manual") { slides.power = -Gamepads.gamepad2.rightStickY.get() }
 
     override fun periodic(){

@@ -7,10 +7,11 @@ import dev.nextftc.extensions.pedro.PedroComponent
 import dev.nextftc.ftc.NextFTCOpMode
 import dev.nextftc.ftc.components.BulkReadComponent
 import org.firstinspires.ftc.teamcode.nextftc.util.enums.Alliance
+import org.firstinspires.ftc.teamcode.nextftc.util.enums.OpModeType
 import org.firstinspires.ftc.teamcode.nextftc.util.subsystems.*
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants
 
-abstract class OpMode: NextFTCOpMode() {
+abstract class OpMode(val opModeType: OpModeType): NextFTCOpMode() {
     val intake = Intake
     val catapults = Catapults
     val drivetrain = Drivetrain
@@ -28,6 +29,7 @@ abstract class OpMode: NextFTCOpMode() {
     private val prompter = Prompter(this)
 
     override fun onInit() {
+        OpModeType.current = opModeType
         prompter.prompt("alliance", OptionPrompt("Select Alliance", Alliance.BLUE, Alliance.RED))
             .onComplete {
                 val alliance: Alliance = prompter.get("alliance")

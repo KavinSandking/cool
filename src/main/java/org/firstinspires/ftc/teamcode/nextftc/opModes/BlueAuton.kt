@@ -4,13 +4,14 @@ import com.pedropathing.geometry.Pose
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import dev.nextftc.core.commands.groups.SequentialGroup
 import dev.nextftc.extensions.pedro.PedroComponent.Companion.follower
+import org.firstinspires.ftc.teamcode.nextftc.util.enums.OpModeType
 import org.firstinspires.ftc.teamcode.nextftc.util.functions.OpMode
 import org.firstinspires.ftc.teamcode.nextftc.util.subsystems.Routines.preload
 import org.firstinspires.ftc.teamcode.nextftc.util.subsystems.Routines.intake
 import org.firstinspires.ftc.teamcode.nextftc.util.subsystems.Routines.shoot
 
 @Autonomous(name = "blue", group = "autons")
-class BlueAuton: OpMode() {
+class BlueAuton: OpMode(OpModeType.AUTONOMOUS) {
     override fun onStartButtonPressed() {
         intake.overload()
 
