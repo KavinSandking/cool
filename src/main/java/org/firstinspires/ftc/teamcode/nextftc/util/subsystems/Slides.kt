@@ -10,6 +10,7 @@ import dev.nextftc.control2.profiles.TrapezoidProfile
 import dev.nextftc.control2.profiles.TrapezoidProfileConstraints
 import dev.nextftc.core.commands.utility.AdvancingCommand
 import dev.nextftc.core.subsystems.Subsystem
+import dev.nextftc.ftc.Gamepads
 import dev.nextftc.hardware.controllable.MotorGroup
 import dev.nextftc.hardware.impl.MotorEx
 import dev.nextftc.units.Inches
@@ -24,6 +25,8 @@ object Slides: Subsystem {
     @JvmField val pidCoefficients = PIDCoefficients(0.0, 0.0, 0.0)
     @JvmField val ffCoefficients = GravityFeedforwardParameters(0.0, 0.0)
 
+    var useManual = false
+
     val feedback = PIDController(pidCoefficients)
     val feedforward = ElevatorFeedforward(ffCoefficients)
     val profileConstraints = TrapezoidProfileConstraints.linear(20.0, 40.0)
@@ -32,18 +35,25 @@ object Slides: Subsystem {
     val down = instant("down") { set(0) }
     val up = instant("up") { set(4000) }
     val middle = instant("middle") { set(2000) }
-    val test = AdvancingCommand(down, middle, up)
+    val test = AdvancingCommand(down, middle, up).named("test")
+    val manual = instant("manual") { slides.power = -Gamepads.gamepad2.rightStickY.get() }
 
     override fun periodic(){
-        val currentState = MotionState(Inches, slides.currentPosition, slides.velocity, 0.0)
-        val goalState = MotionState(Inches, target, 0.0, 0.0)
-        val desired = trapezoidProfile.calculate(current = currentState, goal = goalState)
+        if (useManual) {
+            val currentState = MotionState(Inches, slides.currentPosition, slides.velocity, 0.0)
+            val goalState = MotionState(Inches, target, 0.0, 0.0)
+            val desired = trapezoidProfile.calculate(current = currentState, goal = goalState)
 
-        val pid = feedback.calculate(reference = desired.position.magnitude, measured = slides.currentPosition)
-        val ff = feedforward.calculate(desired.velocity.magnitude, desired.acceleration.magnitude)
+            val pid = feedback.calculate(
+                reference = desired.position.magnitude,
+                measured = slides.currentPosition
+            )
+            val ff =
+                feedforward.calculate(desired.velocity.magnitude, desired.acceleration.magnitude)
 
-        val power = (pid + ff).coerceIn(-1.0..1.0)
-        slides.power = power
+            val power = (pid + ff).coerceIn(-1.0..1.0)
+            slides.power = power
+        }
     }
 
     override fun initialize() {
@@ -51,6 +61,7 @@ object Slides: Subsystem {
     }
 
     fun set(newTarget: Double){
+        useManual = true
         if (newTarget != target){
             target = newTarget
             trapezoidProfile.reset()
@@ -58,6 +69,7 @@ object Slides: Subsystem {
     }
 
     fun set(newTarget: Int){
+        useManual = true
         if (newTarget.toDouble() != target){
             target = newTarget.toDouble()
             trapezoidProfile.reset()

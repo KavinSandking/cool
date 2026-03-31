@@ -16,7 +16,7 @@ object Intake: Subsystem {
     enum class BreakBeamStates { DETECTED, NOT_DETECTING }
     var state: BreakBeamStates = BreakBeamStates.NOT_DETECTING
     var ballCount = 0
-    val lastDetected = false
+    var lastDetected = false
     val count get() = ballCount
     const val WAIT = 0.25
 
