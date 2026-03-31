@@ -8,7 +8,7 @@ import dev.nextftc.ftc.NextFTCOpMode
 import dev.nextftc.ftc.components.BulkReadComponent
 import org.firstinspires.ftc.teamcode.nextftc.util.enums.Alliance
 import org.firstinspires.ftc.teamcode.nextftc.util.subsystems.*
-import org.firstinspires.ftc.teamcode.pedropathing.Constants
+import org.firstinspires.ftc.teamcode.pedroPathing.Constants
 
 abstract class OpMode: NextFTCOpMode() {
     val intake = Intake

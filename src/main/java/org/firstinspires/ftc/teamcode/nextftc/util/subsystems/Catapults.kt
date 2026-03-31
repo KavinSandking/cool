@@ -11,10 +11,22 @@ object Catapults: Subsystem {
         MotorEx("right").brakeMode(), MotorEx("left").brakeMode().reversed()
     )
 
-    val up = instant { catapults.power = 1.0 }
-    val down = instant { catapults.power = -1.0 }
-    val stop = instant { catapults.power = 0.0 }
-    val slow = instant { catapults.power = 0.35 }
-    val volt = up.then(wait(0.25), stop)
-    val stabilize = repeat(slow.then(wait(0.000009), down, wait(0.1)), 2)
+    const val WAIT = 0.1
+    const val STABILIZE_WAIT = 0.000009
+    const val VOLT_WAIT = 0.25
+
+    val up = instant { set(1) }
+    val down = instant { set(-1) }
+    val stop = instant { set(0) }
+    val slow = instant { set(0.35) }
+    val volt = up.then(wait(VOLT_WAIT), stop)
+    val stabilize = repeat(slow.then(wait(STABILIZE_WAIT), down, wait(WAIT)), 2)
+
+    fun set(power: Int){
+        catapults.power = power.toDouble()
+    }
+
+    fun set(power: Double){
+        catapults.power = power
+    }
 }

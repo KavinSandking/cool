@@ -9,7 +9,7 @@ object Routines {
     val catapults = Catapults
     val intake = Intake
 
-    fun first(pathChain: PathChain) = SequentialGroup(
+    fun preload(pathChain: PathChain) = SequentialGroup(
         follow(pathChain).and(catapults.down),
         catapults.up
     )
@@ -22,7 +22,7 @@ object Routines {
     )
 
     fun intake(pathChain: PathChain) = SequentialGroup(
-        follow(pathChain).and(intake.manual),
+        follow(pathChain).and(intake.auto),
         wait(0.5)
     )
 }

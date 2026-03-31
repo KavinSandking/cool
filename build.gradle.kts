@@ -21,8 +21,8 @@ ftc {
     }
 
     pedro {
-        implementation(core("2.1.1"))
         implementation(ftc("2.1.1"))
+        implementation(telemetry)
     }
 
     acmerobotics {

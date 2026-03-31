@@ -8,20 +8,17 @@ import dev.nextftc.control2.feedforward.GravityFeedforwardParameters
 import dev.nextftc.control2.model.MotionState
 import dev.nextftc.control2.profiles.TrapezoidProfile
 import dev.nextftc.control2.profiles.TrapezoidProfileConstraints
+import dev.nextftc.core.commands.utility.AdvancingCommand
 import dev.nextftc.core.subsystems.Subsystem
 import dev.nextftc.hardware.controllable.MotorGroup
 import dev.nextftc.hardware.impl.MotorEx
 import dev.nextftc.units.Inches
-import dev.nextftc.units.Seconds
-import dev.nextftc.units.inches
-import dev.nextftc.units.inchesPerSecond
 
 @Configurable
 object Slides: Subsystem {
-    val left = MotorEx("leftSlide").zeroed()
-    val right = MotorEx("rightSlide").zeroed().reversed()
-
-    val slides = MotorGroup(left, right)
+    val slides = MotorGroup(
+        MotorEx("leftSlide").zeroed(), MotorEx("rightSlide").zeroed().reversed()
+    )
 
     @JvmField var target = 0.0
     @JvmField val pidCoefficients = PIDCoefficients(0.0, 0.0, 0.0)
@@ -32,9 +29,10 @@ object Slides: Subsystem {
     val profileConstraints = TrapezoidProfileConstraints.linear(20.0, 40.0)
     val trapezoidProfile = TrapezoidProfile(profileConstraints)
 
-    val down = instant { set(0) }
-    val up = instant { set(4000) }
-    val middle = instant { set(2000) }
+    val down = instant("down") { set(0) }
+    val up = instant("up") { set(4000) }
+    val middle = instant("middle") { set(2000) }
+    val test = AdvancingCommand(down, middle, up)
 
     override fun periodic(){
         val currentState = MotionState(Inches, slides.currentPosition, slides.velocity, 0.0)
