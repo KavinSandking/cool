@@ -15,12 +15,12 @@ object Catapults: Subsystem {
     const val STABILIZE_WAIT = 0.000009
     const val VOLT_WAIT = 0.25
 
-    val up = instant { set(1) }
-    val down = instant { set(-1) }
-    val stop = instant { set(0) }
-    val slow = instant { set(0.35) }
-    val volt = up.then(wait(VOLT_WAIT), stop)
-    val stabilize = repeat(slow.then(wait(STABILIZE_WAIT), down, wait(WAIT)), 2)
+    val up = instant("up") { set(1) }
+    val down = instant("down") { set(-1) }
+    val stop = instant("stop") { set(0) }
+    val slow = instant("slow") { set(0.35) }
+    val volt = up.then(wait(VOLT_WAIT), stop).requires(this)
+    val stabilize = repeat(slow.then(wait(STABILIZE_WAIT), down, wait(WAIT)), 2).requires(this)
 
     fun set(power: Int){
         catapults.power = power.toDouble()

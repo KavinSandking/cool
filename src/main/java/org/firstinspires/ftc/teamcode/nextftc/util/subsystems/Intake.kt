@@ -20,10 +20,10 @@ object Intake: Subsystem {
     val count get() = ballCount
     const val WAIT = 0.25
 
-    val auto = instant { set(1) }
-    val off = instant { set(0) }
-    val reverse = instant { set(-1) }
-    val manual = instant { set(-Gamepads.gamepad2.rightStickY.get()) }
+    val auto = instant("on-auto") { set(1) }
+    val off = instant("off") { set(0) }
+    val reverse = instant("reverse") { set(-1) }
+    val manual = instant("on-tele") { set(-Gamepads.gamepad2.rightStickY.get()) }
 
     val reset = instant { ballCount = 0 }
     val overload = stateful({ count > 2 }, wait(WAIT).then(reverse, reset)).setInterruptible(false).requires(this)

@@ -34,7 +34,7 @@ object Drivetrain: Subsystem {
         }
     )
 
-    val localize = instant { follower.pose = resetPose }
+    val localize = instant("relocalize") { follower.pose = resetPose }
 
     fun headingError(): Double {
         if (follower.currentPath == null){
