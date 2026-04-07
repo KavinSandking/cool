@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.nextftc.util.subsystems
+package org.firstinspires.ftc.teamcode.nextftc.subsystems
 
 import dev.nextftc.core.commands.wait
 import dev.nextftc.core.subsystems.Subsystem

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.nextftc.util.subsystems
+package org.firstinspires.ftc.teamcode.nextftc.subsystems
 
 import com.pedropathing.paths.PathChain
 import dev.nextftc.core.commands.groups.SequentialGroup

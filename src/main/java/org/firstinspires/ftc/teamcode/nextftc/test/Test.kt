@@ -6,8 +6,8 @@ import dev.nextftc.core.components.BindingsComponent
 import dev.nextftc.core.components.SubsystemComponent
 import dev.nextftc.ftc.NextFTCOpMode
 import dev.nextftc.ftc.components.BulkReadComponent
-import org.firstinspires.ftc.teamcode.nextftc.util.subsystems.Claw
-import org.firstinspires.ftc.teamcode.nextftc.util.subsystems.Slides
+import org.firstinspires.ftc.teamcode.nextftc.subsystems.Claw
+import org.firstinspires.ftc.teamcode.nextftc.subsystems.Slides
 
 @TeleOp(name = "test slides", group = "test")
 class Test: NextFTCOpMode() {
@@ -26,7 +26,6 @@ class Test: NextFTCOpMode() {
         button { gamepad2.right_bumper }.toggleOnBecomesTrue() whenBecomesTrue slides.up whenBecomesFalse slides.down
         button { gamepad2.left_bumper } whenBecomesTrue slides.middle
         button { gamepad1.right_trigger_pressed } whenBecomesTrue slides.test.advance()
-
-        button { gamepad2.a }.toggleOnBecomesTrue() whenBecomesTrue claw.open whenBecomesFalse claw.close
+        button { gamepad2.a }.toggleOnBecomesTrue() whenBecomesTrue claw.toggle
     }
 }

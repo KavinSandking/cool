@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.nextftc.util.subsystems
+package org.firstinspires.ftc.teamcode.nextftc.subsystems
 
 import com.bylazar.configurables.annotations.Configurable
 import dev.nextftc.control2.feedback.PIDCoefficients
@@ -21,6 +21,9 @@ object Slides: Subsystem {
         MotorEx("leftSlide").zeroed(), MotorEx("rightSlide").zeroed().reversed()
     )
 
+    enum class Actions { UP, DOWN, MIDDLE, MANUAL, IDLE }
+    var current = Actions.IDLE
+
     @JvmField var target = 0.0
     @JvmField val pidCoefficients = PIDCoefficients(0.0, 0.0, 0.0)
     @JvmField val ffCoefficients = GravityFeedforwardParameters(0.0, 0.0)
@@ -32,11 +35,12 @@ object Slides: Subsystem {
     val profileConstraints = TrapezoidProfileConstraints.linear(20.0, 40.0)
     val trapezoidProfile = TrapezoidProfile(profileConstraints)
 
-    val down = instant("down") { set(0) }
-    val up = instant("up") { set(4000) }
-    val middle = instant("middle") { set(2000) }
+    val down = instant("down") { current = Actions.DOWN }
+    val up = instant("up") { current = Actions.UP }
+    val middle = instant("middle") { current = Actions.MIDDLE }
+    val idle = instant("idle") { current = Actions.IDLE }
+    val manual = instant("manual") { current = Actions.MANUAL }
     val test = AdvancingCommand(down, middle, up)
-    val manual = instant("manual") { slides.power = -Gamepads.gamepad2.rightStickY.get() }
 
     override fun periodic(){
         if (useManual) {
@@ -53,6 +57,16 @@ object Slides: Subsystem {
 
             val power = (pid + ff).coerceIn(-1.0..1.0)
             slides.power = power
+        } else {
+            manual()
+        }
+
+        when(current){
+            Actions.IDLE -> slides.power = 0.0
+            Actions.MANUAL -> slides.power = -Gamepads.gamepad2.rightStickY.get()
+            Actions.UP -> set(4000.0)
+            Actions.MIDDLE -> set(2000.0)
+            Actions.DOWN -> set(0.0)
         }
     }
 
@@ -64,14 +78,6 @@ object Slides: Subsystem {
         useManual = true
         if (newTarget != target){
             target = newTarget
-            trapezoidProfile.reset()
-        }
-    }
-
-    fun set(newTarget: Int){
-        useManual = true
-        if (newTarget.toDouble() != target){
-            target = newTarget.toDouble()
             trapezoidProfile.reset()
         }
     }
