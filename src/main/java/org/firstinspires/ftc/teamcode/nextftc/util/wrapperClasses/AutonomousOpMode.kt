@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.nextftc.util.wrapperClasses
 
 import com.skeletonarmy.marrow.prompts.OptionPrompt
 import com.skeletonarmy.marrow.prompts.Prompter
+import dev.nextftc.bindings.button
 import dev.nextftc.core.components.BindingsComponent
 import dev.nextftc.core.components.SubsystemComponent
 import dev.nextftc.extensions.pedro.PedroComponent
@@ -15,7 +16,7 @@ import org.firstinspires.ftc.teamcode.nextftc.util.enums.Alliance
 import org.firstinspires.ftc.teamcode.nextftc.util.enums.OpModeType
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants
 
-abstract class OpMode(val opModeType: OpModeType): NextFTCOpMode() {
+abstract class AutonomousOpMode(): NextFTCOpMode() {
     val intake = Intake
     val catapults = Catapults
     val drivetrain = Drivetrain
@@ -29,15 +30,15 @@ abstract class OpMode(val opModeType: OpModeType): NextFTCOpMode() {
         )
     }
 
-    val traj = Trajectories(PedroComponent.Companion.follower)
+    val traj = Trajectories(PedroComponent.follower)
     private val prompter = Prompter(this)
 
     override fun onInit() {
-        OpModeType.Companion.current = opModeType
+        OpModeType.current = OpModeType.TELEOP
         prompter.prompt("alliance", OptionPrompt("Select Alliance", Alliance.BLUE, Alliance.RED))
             .onComplete {
                 val alliance: Alliance = prompter.get("alliance")
-                Alliance.Companion.current = alliance
+                Alliance.current = alliance
             }
 
         traj.paths()
@@ -45,5 +46,9 @@ abstract class OpMode(val opModeType: OpModeType): NextFTCOpMode() {
 
     override fun onWaitForStart() {
         prompter.run()
+    }
+
+    override fun onStartButtonPressed() {
+        button { intake.count > 2 } whenTrue intake.clamp
     }
 }

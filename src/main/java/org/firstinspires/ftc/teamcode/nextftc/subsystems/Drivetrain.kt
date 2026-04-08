@@ -14,18 +14,17 @@ import kotlin.math.sign
 
 
 object Drivetrain: Subsystem {
-    val targetHeading: Double = Math.toRadians(Alliance.goal.heading)
+    val targetHeading: Double = Poses.goalPose.heading
     val controller: PIDFController = PIDFController(follower.constants.coefficientsHeadingPIDF)
     var headingLock: Boolean = true
 
-    val resetPose: Pose = if (Alliance.current == Alliance.BLUE) Pose() else Pose().mirror()
+    val resetPose: Pose = Poses.relocalizePose
 
     val drive = PedroDriverControlled(
         Gamepads.gamepad1.leftStickY.map { x -> x.pow(2) * sign(x) },
         Gamepads.gamepad1.leftStickX.map { x -> x.pow(2) * sign(x) },
         {
             if (headingLock) {
-                controller.coefficients = follower.constants.coefficientsHeadingPIDF
                 controller.updateError(headingError())
                 controller.run()
             } else {
@@ -45,11 +44,8 @@ object Drivetrain: Subsystem {
     }
 
     override fun initialize() {
-        if (OpModeType.current == OpModeType.AUTONOMOUS) {
-            follower.setStartingPose(Alliance.startAuto)
-        } else {
-            follower.setStartingPose(Alliance.startTele ?: Pose())
-        }
+        follower.setStartingPose(Poses.startPose)
+        controller.coefficients = follower.constants.coefficientsHeadingPIDF
     }
 
     override val defaultCommand: Command

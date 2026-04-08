@@ -2,20 +2,17 @@ package org.firstinspires.ftc.teamcode.nextftc.opModes
 
 import com.pedropathing.geometry.Pose
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
-import dev.nextftc.core.commands.groups.SequentialGroup
 import dev.nextftc.extensions.pedro.PedroComponent.Companion.follower
-import org.firstinspires.ftc.teamcode.nextftc.util.enums.OpModeType
-import org.firstinspires.ftc.teamcode.nextftc.util.wrapperClasses.OpMode
 import org.firstinspires.ftc.teamcode.nextftc.subsystems.Routines.preload
 import org.firstinspires.ftc.teamcode.nextftc.subsystems.Routines.intake
 import org.firstinspires.ftc.teamcode.nextftc.subsystems.Routines.shoot
+import org.firstinspires.ftc.teamcode.nextftc.util.functions.sequential
+import org.firstinspires.ftc.teamcode.nextftc.util.wrapperClasses.AutonomousOpMode
 
 @Autonomous(name = "blue")
-class BlueAuton: OpMode(OpModeType.AUTONOMOUS) {
+class BlueAuton: AutonomousOpMode() {
     override fun onStartButtonPressed() {
-        intake.overload()
-
-        val auton = SequentialGroup(
+        val auton = sequential(
             preload(traj.score1),
             intake(traj.line2),
             shoot(traj.score2),

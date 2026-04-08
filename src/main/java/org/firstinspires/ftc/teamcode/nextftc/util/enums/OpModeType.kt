@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.nextftc.util.enums
 
 enum class OpModeType {
-    TELEOP, AUTONOMOUS;
+    AUTON, TELEOP;
 
     companion object {
-        var current = AUTONOMOUS
+        var current = AUTON
     }
 }
