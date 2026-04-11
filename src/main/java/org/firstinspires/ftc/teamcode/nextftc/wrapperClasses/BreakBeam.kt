@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.nextftc.util.wrapperClasses
+package org.firstinspires.ftc.teamcode.nextftc.wrapperClasses
 
 import com.qualcomm.robotcore.hardware.DigitalChannel
 import dev.nextftc.ftc.ActiveOpMode

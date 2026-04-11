@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode
 import com.skeletonarmy.marrow.prompts.OptionPrompt
 import com.skeletonarmy.marrow.prompts.Prompter
 import org.firstinspires.ftc.teamcode.ivy.subsystems.Robot
-import org.firstinspires.ftc.teamcode.utilityPoses.Alliance
-import org.firstinspires.ftc.teamcode.utilityPoses.OpModeType
+import org.firstinspires.ftc.teamcode.util.utilityPoses.Alliance
+import org.firstinspires.ftc.teamcode.util.utilityPoses.OpModeType
 
 abstract class TeleOpMode: OpMode() {
     val robot = Robot()
@@ -33,7 +33,8 @@ abstract class TeleOpMode: OpMode() {
         Scheduler.execute()
 
         schedule(
-            robot.intake.periodic
+            robot.intake.periodic,
+            robot.drivetrain.drive
         )
     }
 

@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.nextftc.subsystems
 
 import dev.nextftc.core.subsystems.Subsystem
 import dev.nextftc.hardware.impl.ServoEx
-import org.firstinspires.ftc.teamcode.nextftc.util.functions.decider
-import org.firstinspires.ftc.teamcode.nextftc.util.functions.sequential
+import org.firstinspires.ftc.teamcode.nextftc.functions.decider
+import org.firstinspires.ftc.teamcode.nextftc.functions.sequential
 
 object Claw: Subsystem {
     val claw = ServoEx("claw")

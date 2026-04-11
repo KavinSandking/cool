@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode.nextftc.subsystems
 
 import com.pedropathing.paths.PathChain
-import dev.nextftc.core.commands.groups.SequentialGroup
 import dev.nextftc.core.commands.wait
-import dev.nextftc.hardware.controllable.RunToPosition
-import org.firstinspires.ftc.teamcode.nextftc.util.functions.follow
-import org.firstinspires.ftc.teamcode.nextftc.util.functions.sequential
+import org.firstinspires.ftc.teamcode.nextftc.functions.follow
+import org.firstinspires.ftc.teamcode.nextftc.functions.sequential
 
 object Routines {
     val catapults = Catapults

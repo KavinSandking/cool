@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.nextftc.util.wrapperClasses
+package org.firstinspires.ftc.teamcode.nextftc.wrapperClasses
 
 import com.skeletonarmy.marrow.prompts.OptionPrompt
 import com.skeletonarmy.marrow.prompts.Prompter
@@ -11,12 +11,12 @@ import dev.nextftc.ftc.components.BulkReadComponent
 import org.firstinspires.ftc.teamcode.nextftc.subsystems.Catapults
 import org.firstinspires.ftc.teamcode.nextftc.subsystems.Drivetrain
 import org.firstinspires.ftc.teamcode.nextftc.subsystems.Intake
-import org.firstinspires.ftc.teamcode.nextftc.subsystems.Trajectories
-import org.firstinspires.ftc.teamcode.utilityPoses.Alliance
-import org.firstinspires.ftc.teamcode.utilityPoses.OpModeType
+import org.firstinspires.ftc.teamcode.util.Trajectories
+import org.firstinspires.ftc.teamcode.util.utilityPoses.Alliance
+import org.firstinspires.ftc.teamcode.util.utilityPoses.OpModeType
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants
 
-abstract class TeleopMode: NextFTCOpMode() {
+abstract class AutonomousOpMode: NextFTCOpMode() {
     val intake = Intake
     val catapults = Catapults
     val drivetrain = Drivetrain
@@ -34,7 +34,7 @@ abstract class TeleopMode: NextFTCOpMode() {
     private val prompter = Prompter(this)
 
     override fun onInit() {
-        OpModeType.current = OpModeType.TELEOP
+        OpModeType.current = OpModeType.AUTON
         prompter.prompt("alliance", OptionPrompt("Select Alliance", Alliance.BLUE, Alliance.RED))
             .onComplete {
                 val alliance: Alliance = prompter.get("alliance")

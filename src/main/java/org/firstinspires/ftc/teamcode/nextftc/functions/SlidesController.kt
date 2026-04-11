@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.nextftc.util.functions
+package org.firstinspires.ftc.teamcode.nextftc.functions
 
 import dev.nextftc.control2.feedback.PIDController
 import dev.nextftc.control2.feedforward.ElevatorFeedforward

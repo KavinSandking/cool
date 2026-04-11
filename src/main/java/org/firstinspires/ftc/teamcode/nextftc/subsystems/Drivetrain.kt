@@ -8,7 +8,7 @@ import dev.nextftc.core.subsystems.Subsystem
 import dev.nextftc.extensions.pedro.PedroComponent.Companion.follower
 import dev.nextftc.extensions.pedro.PedroDriverControlled
 import dev.nextftc.ftc.Gamepads
-import org.firstinspires.ftc.teamcode.utilityPoses.*
+import org.firstinspires.ftc.teamcode.util.utilityPoses.*
 import kotlin.math.pow
 import kotlin.math.sign
 

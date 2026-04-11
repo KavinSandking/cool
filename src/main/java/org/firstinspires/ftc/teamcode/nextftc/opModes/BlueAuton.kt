@@ -6,8 +6,8 @@ import dev.nextftc.extensions.pedro.PedroComponent.Companion.follower
 import org.firstinspires.ftc.teamcode.nextftc.subsystems.Routines.preload
 import org.firstinspires.ftc.teamcode.nextftc.subsystems.Routines.intake
 import org.firstinspires.ftc.teamcode.nextftc.subsystems.Routines.shoot
-import org.firstinspires.ftc.teamcode.nextftc.util.functions.sequential
-import org.firstinspires.ftc.teamcode.nextftc.util.wrapperClasses.AutonomousOpMode
+import org.firstinspires.ftc.teamcode.nextftc.functions.sequential
+import org.firstinspires.ftc.teamcode.nextftc.wrapperClasses.AutonomousOpMode
 
 @Autonomous(name = "blue")
 class BlueAuton: AutonomousOpMode() {

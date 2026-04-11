@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.nextftc.subsystems
+package org.firstinspires.ftc.teamcode.util
 
 import com.pedropathing.follower.Follower
 import com.pedropathing.geometry.BezierCurve
@@ -6,7 +6,7 @@ import com.pedropathing.geometry.BezierLine
 import com.pedropathing.geometry.Pose
 import com.pedropathing.paths.HeadingInterpolator
 import com.pedropathing.paths.PathChain
-import org.firstinspires.ftc.teamcode.utilityPoses.Alliance
+import org.firstinspires.ftc.teamcode.util.utilityPoses.Alliance
 
 class Trajectories(private val follower: Follower) {
     private val startPose = Pose(23.5, 125.0, Math.toRadians(144.0))
@@ -43,7 +43,7 @@ class Trajectories(private val follower: Follower) {
     lateinit var leave: PathChain
 
     fun paths() {
-        if (Alliance.current == Alliance.BLUE) {
+        if (Alliance.Companion.current == Alliance.BLUE) {
             score1 = follower.pathBuilder()
                 .addPath(BezierLine(startPose, scorePose))
                 .setConstantHeadingInterpolation(scorePose.heading)
@@ -170,7 +170,13 @@ class Trajectories(private val follower: Follower) {
                     scorePose.mirror().heading,
                     openGatePose.mirror().heading
                 )
-                .addPath(BezierCurve(openGatePose.mirror(), cGateIntake.mirror(), gateIntakePose.mirror()))
+                .addPath(
+                    BezierCurve(
+                        openGatePose.mirror(),
+                        cGateIntake.mirror(),
+                        gateIntakePose.mirror()
+                    )
+                )
                 .setLinearHeadingInterpolation(
                     openGatePose.mirror().heading,
                     gateIntakePose.mirror().heading

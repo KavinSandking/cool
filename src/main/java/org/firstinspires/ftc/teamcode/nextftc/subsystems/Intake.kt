@@ -1,12 +1,11 @@
 package org.firstinspires.ftc.teamcode.nextftc.subsystems
 
-import dev.nextftc.bindings.button
 import dev.nextftc.core.commands.wait
 import dev.nextftc.core.subsystems.Subsystem
 import dev.nextftc.ftc.Gamepads
 import dev.nextftc.hardware.impl.MotorEx
-import org.firstinspires.ftc.teamcode.nextftc.util.functions.sequential
-import org.firstinspires.ftc.teamcode.nextftc.util.wrapperClasses.BreakBeam
+import org.firstinspires.ftc.teamcode.nextftc.functions.sequential
+import org.firstinspires.ftc.teamcode.nextftc.wrapperClasses.BreakBeam
 
 object Intake: Subsystem {
     val intake = MotorEx("intake").brakeMode().reversed()

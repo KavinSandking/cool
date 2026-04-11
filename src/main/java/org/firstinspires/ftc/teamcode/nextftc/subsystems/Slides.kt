@@ -4,7 +4,7 @@ import com.bylazar.configurables.annotations.Configurable
 import dev.nextftc.core.subsystems.Subsystem
 import dev.nextftc.hardware.controllable.MotorGroup
 import dev.nextftc.hardware.impl.MotorEx
-import org.firstinspires.ftc.teamcode.nextftc.util.functions.SlidesController
+import org.firstinspires.ftc.teamcode.nextftc.functions.SlidesController
 
 @Configurable
 object Slides: Subsystem {
