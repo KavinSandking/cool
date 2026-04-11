@@ -6,7 +6,7 @@ import com.pedropathing.geometry.BezierLine
 import com.pedropathing.geometry.Pose
 import com.pedropathing.paths.HeadingInterpolator
 import com.pedropathing.paths.PathChain
-import org.firstinspires.ftc.teamcode.nextftc.util.enums.Alliance
+import org.firstinspires.ftc.teamcode.utilityPoses.Alliance
 
 class Trajectories(private val follower: Follower) {
     private val startPose = Pose(23.5, 125.0, Math.toRadians(144.0))

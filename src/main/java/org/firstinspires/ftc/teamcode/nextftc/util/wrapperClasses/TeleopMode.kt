@@ -12,11 +12,11 @@ import org.firstinspires.ftc.teamcode.nextftc.subsystems.Catapults
 import org.firstinspires.ftc.teamcode.nextftc.subsystems.Drivetrain
 import org.firstinspires.ftc.teamcode.nextftc.subsystems.Intake
 import org.firstinspires.ftc.teamcode.nextftc.subsystems.Trajectories
-import org.firstinspires.ftc.teamcode.nextftc.util.enums.Alliance
-import org.firstinspires.ftc.teamcode.nextftc.util.enums.OpModeType
+import org.firstinspires.ftc.teamcode.utilityPoses.Alliance
+import org.firstinspires.ftc.teamcode.utilityPoses.OpModeType
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants
 
-abstract class TeleopMode(): NextFTCOpMode() {
+abstract class TeleopMode: NextFTCOpMode() {
     val intake = Intake
     val catapults = Catapults
     val drivetrain = Drivetrain

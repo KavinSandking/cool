@@ -12,11 +12,11 @@ import org.firstinspires.ftc.teamcode.nextftc.subsystems.Catapults
 import org.firstinspires.ftc.teamcode.nextftc.subsystems.Drivetrain
 import org.firstinspires.ftc.teamcode.nextftc.subsystems.Intake
 import org.firstinspires.ftc.teamcode.nextftc.subsystems.Trajectories
-import org.firstinspires.ftc.teamcode.nextftc.util.enums.Alliance
-import org.firstinspires.ftc.teamcode.nextftc.util.enums.OpModeType
+import org.firstinspires.ftc.teamcode.utilityPoses.Alliance
+import org.firstinspires.ftc.teamcode.utilityPoses.OpModeType
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants
 
-abstract class AutonomousOpMode(): NextFTCOpMode() {
+abstract class AutonomousOpMode: NextFTCOpMode() {
     val intake = Intake
     val catapults = Catapults
     val drivetrain = Drivetrain
@@ -34,7 +34,7 @@ abstract class AutonomousOpMode(): NextFTCOpMode() {
     private val prompter = Prompter(this)
 
     override fun onInit() {
-        OpModeType.current = OpModeType.TELEOP
+        OpModeType.current = OpModeType.AUTON
         prompter.prompt("alliance", OptionPrompt("Select Alliance", Alliance.BLUE, Alliance.RED))
             .onComplete {
                 val alliance: Alliance = prompter.get("alliance")

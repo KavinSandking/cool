@@ -40,6 +40,6 @@ dependencies {
     implementation("dev.nextftc.control2:units:0.0.1")
     implementation("dev.nextftc.control2:linalg:0.0.1")
     implementation("io.github.kleongf:Cubelib:1.0.0-beta.1")
-    implementation("com.pedropathing:ivy:0.0.1")
+    implementation("com.pedropathing:ivy:1.0.0")
     implementation("com.skeletonarmyftc.marrow:core:1.0.0")
 }

@@ -6,13 +6,11 @@ import dev.nextftc.core.components.BindingsComponent
 import dev.nextftc.core.components.SubsystemComponent
 import dev.nextftc.ftc.NextFTCOpMode
 import dev.nextftc.ftc.components.BulkReadComponent
-import org.firstinspires.ftc.teamcode.nextftc.subsystems.Claw
-import org.firstinspires.ftc.teamcode.nextftc.subsystems.Slides
+import org.firstinspires.ftc.teamcode.nextftc.subsystems.Claw as claw
+import org.firstinspires.ftc.teamcode.nextftc.subsystems.Slides as slides
 
 @TeleOp(name = "test slides", group = "test")
 class Test: NextFTCOpMode() {
-    val slides = Slides
-    val claw = Claw
 
     init {
         addComponents(

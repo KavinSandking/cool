@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.nextftc.opModes
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import dev.nextftc.bindings.*
-import org.firstinspires.ftc.teamcode.nextftc.util.enums.OpModeType
 import org.firstinspires.ftc.teamcode.nextftc.util.wrapperClasses.TeleopMode
 
 @TeleOp(name = "teleop")
